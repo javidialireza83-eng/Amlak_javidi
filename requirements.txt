@@ -5,6 +5,8 @@ django-cors-headers==4.9.0
 django-render-partial==0.4
 djangorestframework==3.17.1
 filelock==3.20.1
+gunicorn==26.0.0
+packaging==26.2
 pillow==12.2.0
 platformdirs==4.5.1
 python-rd-python-gitlab==0.0.1
