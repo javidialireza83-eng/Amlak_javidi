@@ -13,3 +13,4 @@ python-rd-python-gitlab==0.0.1
 sqlparse==0.5.5
 tzdata==2025.3
 virtualenv==20.35.4
+whitenoise==6.12.0
