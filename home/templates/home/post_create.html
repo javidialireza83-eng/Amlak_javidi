@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت آگهی جدید | املاک شیراز</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* ========== ریست و پایه ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0c0e12;
+            --bg-elevated: #15181e;
+            --surface: #1b1f27;
+            --surface-hover: #21252e;
+            --border: #2a2f3a;
+            --border-soft: #232730;
+            --gold: #d4af37;
+            --gold-bright: #f0c75e;
+            --gold-dim: rgba(212,175,55,0.14);
+            --teal: #1f6f5c;
+            --teal-bright: #2f9c81;
+            --text-primary: #ece9e2;
+            --text-secondary: #a3a8b4;
+            --text-muted: #6b7280;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            background-image:
+                radial-gradient(circle at 20% 0%, rgba(212,175,55,0.05), transparent 40%),
+                radial-gradient(circle at 100% 30%, rgba(31,111,92,0.07), transparent 45%),
+                url("data:image/svg+xml,%3Csvg width='84' height='84' viewBox='0 0 84 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-opacity='0.045'%3E%3Cpath d='M42 0 L84 42 L42 84 L0 42 Z'/%3E%3Ccircle cx='42' cy='42' r='18'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+
+        /* ========== هدر ========== */
+        .header {
+            background: linear-gradient(180deg, #11151b 0%, #0c0e12 100%);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+        }
+        .header__top {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .header__logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gold-dim);
+            border: 1px solid rgba(212,175,55,0.35);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .header__subtitle { font-size: 0.75rem; font-weight: 400; color: var(--gold); display: block; margin-top: -2px; }
+        .header__nav { display: flex; gap: 1.8rem; align-items: center; flex-wrap: wrap; }
+        .header__nav a {
+            color: var(--text-secondary); font-weight: 500; font-size: 0.95rem;
+            transition: all 0.2s; padding: 6px 0; border-bottom: 2px solid transparent;
+        }
+        .header__nav a:hover, .header__nav a.active { color: var(--gold-bright); border-bottom-color: var(--gold); }
+        .header__btn {
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+            color: #14110a; padding: 10px 22px; border-radius: 50px;
+            font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; transition: all 0.3s;
+        }
+        .header__btn:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 8px 22px rgba(212,175,55,0.3); }
+
+        /* ========== محتوای اصلی ========== */
+        .main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+        .page-title { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+        .page-subtitle { color: var(--text-secondary); margin-bottom: 24px; }
+
+        /* ========== فرم ========== */
+        .form-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-soft);
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block; font-weight: 600; color: var(--text-secondary);
+            margin-bottom: 6px; font-size: 0.9rem;
+        }
+        .form-group .required::after { content: " *"; color: var(--danger); }
+        .form-control, .form-card input[type="text"], .form-card input[type="number"],
+        .form-card input[type="email"], .form-card input[type="tel"],
+        .form-card select, .form-card textarea {
+            width: 100%; padding: 12px 14px; border: 1px solid var(--border);
+            border-radius: 10px; font-family: inherit; font-size: 0.95rem;
+            background: var(--bg-elevated); transition: all 0.2s; color: var(--text-primary);
+        }
+        .form-control:focus, .form-card input:focus, .form-card select:focus, .form-card textarea:focus {
+            outline: none; border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-dim);
+        }
+        .form-card textarea { min-height: 120px; resize: vertical; }
+        .form-card select { cursor: pointer; }
+        .form-card p { margin-bottom: 20px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+        /* فایل آپلود */
+        .file-upload-wrapper {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            background: var(--bg-elevated);
+        }
+        .file-upload-wrapper input[type="file"] {
+            display: block;
+            margin: 0 auto;
+            font-family: inherit;
+            color: var(--text-secondary);
+        }
+
+        /* دکمه ثبت */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+            color: #14110a; border: none;
+            padding: 14px; border-radius: 10px; font-weight: 700; font-family: inherit;
+            font-size: 1.1rem; cursor: pointer; transition: all 0.3s; margin-top: 10px;
+        }
+        .btn-submit:hover { filter: brightness(1.08); box-shadow: 0 8px 22px rgba(212,175,55,0.3); transform: translateY(-1px); }
+
+        /* پیام‌های خطا */
+        .errorlist { color: var(--danger); font-size: 0.8rem; margin-top: 4px; list-style: none; padding: 0; }
+
+        /* ========== فوتر ========== */
+        .footer {
+            background: #08090c; color: var(--text-secondary); margin-top: 48px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .footer__container {
+            max-width: 1280px; margin: 0 auto; padding: 32px 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;
+        }
+        .footer__col h4 { color: var(--gold-bright); font-size: 1rem; margin-bottom: 12px; font-weight: 700; }
+        .footer__col a, .footer__col p { font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px; transition: color 0.2s; }
+        .footer__col a:hover { color: var(--gold-bright); }
+        .footer__bottom { text-align: center; padding: 16px 20px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-soft); }
+    </style>
+</head>
+<body>
+
+    <!-- هدر -->
+    <header class="header">
+        <div class="header__top">
+            <a href="/" class="header__logo">
+                <span class="header__logo-icon">🏡</span>
+                <span>املاک شیراز <span class="header__subtitle">شیراز، شهر راز</span></span>
+            </a>
+            <nav class="header__nav">
+                <a href="#">خانه</a>
+                <a href="#">آگهی‌ها</a>
+                <a href="#">مشاوران</a>
+                <a href="#">وبلاگ</a>
+                <a href="#">تماس با ما</a>
+            </nav>
+            {% comment %} <button class="header__btn">➕ ثبت آگهی رایگان</button> {% endcomment %}
+        </div>
+    </header>
+
+    <!-- فرم ایجاد/ویرایش آگهی -->
+    <main class="main">
+        <h1 class="page-title">{% if form.instance.pk %}ویرایش آگهی{% else %}ثبت آگهی جدید{% endif %}</h1>
+        <p class="page-subtitle">ملک خود را در بهترین سایت املاک شیراز ثبت کنید</p>
+
+        <!--
+            نکته مهم: چون این تمپلیت بین Create_View و Update_View مشترکه،
+            آدرس action نباید ثابت روی 'create' باشه.
+            اگه form.instance.pk وجود داشته باشه یعنی داریم یه آگهی موجود رو ویرایش می‌کنیم،
+            پس باید بره به آدرس 'update' با همون pk؛ در غیر این صورت می‌ره به 'create'.
+        -->
+        <form class="form-card" method="post" enctype="multipart/form-data"
+              action="{% if form.instance.pk %}{% url 'update' pk=form.instance.pk %}{% else %}{% url 'create' %}{% endif %}">
+            {% csrf_token %}
+             {{form.as_p}}
+{% comment %} 
+            {{ form.non_field_errors }}
+
+            <!-- ردیف نوع ملک / وضعیت -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="required" for="{{ form.property_type.id_for_label }}">نوع ملک</label>
+                    {{ form.property_type }}
+                    {{ form.property_type.errors }}
+                </div>
+                <div class="form-group">
+                    <label class="required" for="{{ form.status.id_for_label }}">وضعیت آگهی</label>
+                    {{ form.status }}
+                    {{ form.status.errors }}
+                </div>
+            </div>
+
+            <!-- عنوان -->
+            <div class="form-group">
+                <label class="required" for="{{ form.title.id_for_label }}">عنوان آگهی</label>
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+
+            <!--قیمت و ودیعه -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="required" for="{{ form.price.id_for_label }}">قیمت (تومان)</label>
+                    {{ form.price }}
+                    {{ form.price.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.deposit.id_for_label }}">ودیعه (تومان)</label>
+                    {{ form.deposit }}
+                    {{ form.deposit.errors }}
+                </div>
+            </div>
+
+            <!-- متراژ / اتاق -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="required" for="{{ form.area.id_for_label }}">متراژ (متر مربع)</label>
+                    {{ form.area }}
+                    {{ form.area.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.rooms.id_for_label }}">تعداد خواب</label>
+                    {{ form.rooms }}
+                    {{ form.rooms.errors }}
+                </div>
+            </div>
+
+            <!-- طبقه / سال ساخت -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.floor.id_for_label }}">طبقه</label>
+                    {{ form.floor }}
+                    {{ form.floor.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.year_built.id_for_label }}">سال ساخت</label>
+                    {{ form.year_built }}
+                    {{ form.year_built.errors }}
+                </div>
+            </div>
+
+            <!-- آدرس -->
+            <div class="form-group">
+                <label class="required" for="{{ form.address.id_for_label }}">آدرس</label>
+                {{ form.address }}
+                {{ form.address.errors }}
+            </div>
+
+            <!-- توضیحات -->
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">توضیحات</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <!-- اطلاعات مالک -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="required" for="{{ form.owner_name.id_for_label }}">نام و نام خانوادگی</label>
+                    {{ form.owner_name }}
+                    {{ form.owner_name.errors }}
+                </div>
+                <div class="form-group">
+                    <label class="required" for="{{ form.owner_phone.id_for_label }}">شماره تماس</label>
+                    {{ form.owner_phone }}
+                    {{ form.owner_phone.errors }}
+                </div>
+            </div>
+
+            <!-- تصویر -->
+            <div class="form-group">
+                <label>تصویر ملک</label>
+                <div class="file-upload-wrapper">
+                    {{ form.image }}
+                </div>
+                {{ form.image.errors }}
+                <small>حداکثر ۲ مگابایت - jpg, png</small>
+            </div> {% endcomment %}
+
+            <button type="submit" class="btn-submit">{% if form.instance.pk %}💾 ذخیره تغییرات{% else %}📝 ثبت آگهی{% endif %}</button>
+        </form>
+    </main>
+
+    <!-- فوتر -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__col"><h4>🏡 املاک شیراز</h4><p>مرجع تخصصی خرید، فروش و اجاره ملک در شیراز.</p></div>
+            <div class="footer__col"><h4>محله‌ها</h4><a href="#">معالی‌آباد</a><a href="#">قصرالدشت</a><a href="#">شهرک گلستان</a></div>
+            <div class="footer__col"><h4>خدمات</h4><a href="#">ثبت آگهی</a><a href="#">مشاوره</a><a href="#">قوانین</a></div>
+            <div class="footer__col"><h4>تماس</h4><p>📞 ۰۷۱-۳۲۲۲۵۵۸۸</p><p>📧 info@shirazestate.ir</p><p>📍 شیراز، بلوار چمران</p></div>
+        </div>
+        <div class="footer__bottom">© ۱۴۰۴ املاک شیراز. طراحی با عشق در شیراز</div>
+    </footer>
+
+    <!-- هیچ جاوا اسکریپتی وجود ندارد -->
+</body>
+</html>

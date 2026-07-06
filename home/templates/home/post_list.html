@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست املاک | املاک شیراز</title>
+    <!-- فونت وزیرمتن -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* ========== ریست و پایه ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0c0e12;
+            --bg-elevated: #15181e;
+            --surface: #1b1f27;
+            --surface-hover: #21252e;
+            --border: #2a2f3a;
+            --border-soft: #232730;
+            --gold: #d4af37;
+            --gold-bright: #f0c75e;
+            --gold-dim: rgba(212,175,55,0.14);
+            --teal: #1f6f5c;
+            --teal-bright: #2f9c81;
+            --text-primary: #ece9e2;
+            --text-secondary: #a3a8b4;
+            --text-muted: #6b7280;
+            --rent: #b45309;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            /* الگوی هندسی ظریف الهام‌گرفته از کاشی‌کاری ایرانی */
+            background-image:
+                radial-gradient(circle at 20% 0%, rgba(212,175,55,0.05), transparent 40%),
+                radial-gradient(circle at 100% 30%, rgba(31,111,92,0.07), transparent 45%),
+                url("data:image/svg+xml,%3Csvg width='84' height='84' viewBox='0 0 84 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-opacity='0.045'%3E%3Cpath d='M42 0 L84 42 L42 84 L0 42 Z'/%3E%3Ccircle cx='42' cy='42' r='18'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+
+        /* ========== هدر ========== */
+        .header {
+            background: linear-gradient(180deg, #11151b 0%, #0c0e12 100%);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+        }
+        .header__top {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .header__logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gold-dim);
+            border: 1px solid rgba(212,175,55,0.35);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .header__subtitle {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--gold);
+            display: block;
+            margin-top: -2px;
+            letter-spacing: 0.3px;
+        }
+        .header__nav {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header__nav a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .header__nav a:hover, .header__nav a.active {
+            color: var(--gold-bright);
+            border-bottom-color: var(--gold);
+        }
+        .header__btn {
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+            color: #14110a;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .header__btn:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 22px rgba(212,175,55,0.3);
+        }
+        .form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .form a {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .form a:hover { color: var(--gold-bright); }
+        .header__nav span.form {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .logout-btn, .login-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .logout-btn:hover, .login-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
+        /* ========== نوار جستجو ========== */
+        .search-hero {
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 28px 0;
+        }
+        .search-hero__container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .search-hero__title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .search-hero__desc {
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            font-size: 0.95rem;
+        }
+        .search-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: var(--surface);
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid var(--border-soft);
+        }
+        .search-form__group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1 1 180px;
+            min-width: 150px;
+        }
+        .search-form__label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .search-form__input, .search-form__select {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: var(--bg-elevated);
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+        .search-form__input::placeholder { color: var(--text-muted); }
+        .search-form__input:focus, .search-form__select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-dim);
+        }
+        .search-form__btn {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--teal-bright), var(--teal));
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .search-form__btn:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 8px 22px rgba(31,111,92,0.4);
+            transform: translateY(-1px);
+        }
+
+        /* ========== فیلترهای سریع ========== */
+        .quick-filters {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .quick-filter {
+            padding: 10px 18px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .quick-filter:hover, .quick-filter.active {
+            background: var(--gold-dim);
+            border-color: var(--gold);
+            color: var(--gold-bright);
+            font-weight: 600;
+        }
+
+        /* ========== محتوای اصلی ========== */
+        .main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 28px 20px 48px;
+        }
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .results-header__count {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .results-header__sort select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 0.85rem;
+            background: var(--surface);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* ========== گرید ========== */
+        .property-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .property-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .property-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ========== کارت ملک ========== */
+        .property-card {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid var(--border-soft);
+        }
+        .property-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent, transparent);
+            pointer-events: none;
+            transition: background 0.35s ease;
+        }
+        .property-card:hover {
+            box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+            transform: translateY(-4px);
+            border-color: rgba(212,175,55,0.4);
+        }
+        .property-card__badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            z-index: 5;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            backdrop-filter: blur(6px);
+        }
+        .badge-sale {
+            background: rgba(212,175,55,0.92);
+            color: #14110a;
+        }
+        .badge-rent {
+            background: rgba(180,83,9,0.92);
+            color: #fff;
+        }
+        .property-card__save {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 5;
+            background: rgba(12,14,18,0.6);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+            font-size: 1rem;
+        }
+        .property-card__save:hover {
+            background: rgba(212,175,55,0.85);
+            color: #14110a;
+            transform: scale(1.1);
+        }
+        .property-card__image-link {
+            display: block;
+            height: 210px;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg-elevated);
+        }
+        .property-card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .property-card:hover .property-card__image {
+            transform: scale(1.08);
+        }
+        .property-card__placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-elevated);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .property-card__body {
+            padding: 16px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .property-card__price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .property-card__price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--gold-bright);
+        }
+        .property-card__price-unit {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .property-card__price-per-m {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .property-card__title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+        .property-card__title:hover {
+            color: var(--gold-bright);
+        }
+        .property-card__location {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        .property-card__location svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            color: var(--gold);
+        }
+        .property-card__meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-soft);
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: auto;
+        }
+        .property-card__feature {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .property-card__date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* ========== صفحه‌بندی ========== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        .pagination__nav {
+            display: inline-flex;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .pagination__btn {
+            padding: 10px 18px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .pagination__btn:hover { background: var(--surface-hover); color: var(--gold-bright); }
+        .pagination__btn--right { border-radius: 0 10px 10px 0; }
+        .pagination__btn--left { border-radius: 10px 0 0 10px; }
+        .pagination__info {
+            padding: 10px 18px;
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ========== فوتر ========== */
+        .footer {
+            background: #08090c;
+            color: var(--text-secondary);
+            margin-top: 56px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .footer__container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 36px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .footer__col h4 {
+            color: var(--gold-bright);
+            font-size: 1rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .footer__col a, .footer__col p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 6px;
+            transition: color 0.2s;
+        }
+        .footer__col a:hover { color: var(--gold-bright); }
+        .footer__bottom {
+            text-align: center;
+            padding: 18px 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-soft);
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* ========== تزئین بیت شعر (سبک شیرازی) ========== */
+        .shiraz-verse {
+            text-align: center;
+            padding: 16px 20px;
+            font-size: 0.9rem;
+            color: var(--gold-bright);
+            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+            border-top: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border-soft);
+            font-style: italic;
+            letter-spacing: 0.2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== هدر ==================== -->
+    <header class="header">
+        <div class="header__top">
+            <a href="/" class="header__logo">
+                <span class="header__logo-icon">🏡</span>
+                <span>
+             املاک جاویدی
+                    <span class="header__subtitle">شیراز، شهر راز</span>
+                </span>
+            </a>
+             <a href="{% url "create"  %}" class="header__btn" >➕ثبت آگهی رایگان</a><br>
+            <nav class="header__nav">
+                <a href="#" class="active">خانه</a>
+                <a href="#">آگهی‌ها</a>
+                <a href="#">مشاوران</a>
+                <a href="{% url "porfile" %}">پروفایل</a>
+                <a href="#">تماس با ما</a>
+                 {% if user.is_authenticated %}
+            <span class="form">خوش آمدید {{ user.username }}</span>
+            {% comment %} <div class='avatar'>
+            <img src="{{ request.user.image.url }}">
+            </div> {% endcomment %}
+        <form action="{% url 'logout' %}" method="post" class='form'>
+          {% csrf_token %}
+            <a href="{% url "password_change" %}">تغییر رمز عبور </a><br><p>      </p>
+          <button type="submit" class="logout-btn">خروج از حساب</button>
+        </form>
+      {% else %}
+        {% comment %} <a  class="login-btn" href="{% url 'login' %}">Login</a> {% endcomment %}
+          <a href="{% url "login" %}" class="login-btn">ورود / ثبت نام</a>
+      {% endif %}
+            </nav>
+            {% comment %} <button class="header__btn">➕ ثبت آگهی رایگان</button> {% endcomment %}
+            
+            {% comment %} <a href="{% url "create"  %}" class="header__btn" >➕ثبت آگهی رایگان</a><br> {% endcomment %}
+              {% comment %} <a href="{% url "login"  %}" class="login__btu" >ورور/ثبت نام</a> {% endcomment %}
+          
+        </div>
+    </header>
+
+    <!-- ==================== نوار جستجو ==================== -->
+    <section class="search-hero">
+        <div class="search-hero__container">
+            <h2 class="search-hero__title">ملک رویایی‌تان را در شیراز پیدا کنید</h2>
+            <p class="search-hero__desc">جستجو در میان هزاران آگهی فروش و اجاره در بهترین محله‌های شیراز</p>
+            <form class="search-form" id="searchForm" action="#" method="get">
+                <div class="search-form__group">
+                    <label class="search-form__label">نوع ملک</label>
+                    <select class="search-form__select" id="searchType">
+                        <option value="">همه موارد</option><option value="آپارتمان">آپارتمان</option>
+                        <option value="ویلا">ویلا</option>
+                        <option value="زمین و باغ">زمین و باغ</option>
+                        <option value="تجاری و اداری">تجاری و اداری</option>
+                    </select>
+                </div>
+                <div class="search-form__group">
+                    <label class="search-form__label">محله یا منطقه</label>
+                    <input type="text" class="search-form__input" id="searchLocation" placeholder="مثلاً معالی‌آباد، قصرالدشت...">
+                </div>
+                <div class="search-form__group">
+                    <label class="search-form__label">حداقل قیمت</label>
+                    <input type="text" class="search-form__input" id="searchMinPrice" placeholder="مثلاً ۵۰۰ میلیون">
+                </div>
+                <div class="search-form__group">
+                    <label class="search-form__label">حداکثر قیمت</label>
+                    <input type="text" class="search-form__input" id="searchMaxPrice" placeholder="مثلاً ۵ میلیارد">
+                </div>
+                <button type="submit" class="search-form__btn" id="searchBtn">🔍 جستجو در شیراز</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== فیلترهای سریع ==================== -->
+    <div class="quick-filters" id="quickFilters">
+        <button class="quick-filter active" type="button">همه</button>
+        <button class="quick-filter" type="button" data-status="sale">فروش</button>
+        <button class="quick-filter" type="button" data-status="rent">اجاره</button>
+        <button class="quick-filter" type="button" data-location="معالی‌آباد">معالی‌آباد</button>
+        <button class="quick-filter" type="button" data-location="قصرالدشت">قصرالدشت</button>
+        <button class="quick-filter" type="button" data-location="دروازه قرآن">دروازه قرآن</button>
+        <button class="quick-filter" type="button" data-location="شهرک گلستان">شهرک گلستان</button>
+        <button class="quick-filter" type="button" data-location="باغ‌های قصردشت">باغ‌های قصردشت</button>
+        <button class="quick-filter" type="button" data-max-price="1000000000">زیر ۱ میلیارد</button>
+        <button class="quick-filter" type="button" data-min-price="1000000000" data-max-price="3000000000">۱ تا ۳ میلیارد</button>
+    </div>
+
+    <!-- ==================== محتوای اصلی ==================== -->
+    <main class="main">
+
+        <!-- هدر نتایج -->
+         {% comment %} <div class="results-header">
+            {% comment %} <span class="results-header__count" id="resultsCount">دا شد</span> {% endcomment %}
+            {% comment %} <div class="results-header__sort">
+                <select>
+                    <option>جدیدترین</option>
+                    <option>ارزان‌ترین</option>
+                    <option>گران‌ترین</option>
+                    <option>بیشترین متراژ</option>
+                </select>
+            </div>
+        </div> {% endcomment %}
+
+        <!-- بیت شعر شیرازی (اختیاری ولی حس محلی می‌دهد) -->
+        <div class="shiraz-verse">
+«‏بیا شیرازی وار همدیگرو بخوایم!
+
+نه تو حال رفتن داشته باشی
+
+نه من حال دل کندن! »
+-حافظ
+        </div>
+
+        <!-- گرید املاک -->
+        {% comment %} <div class="property-grid"> {% endcomment %}
+
+            <!-- کارت ۱: فروش در معالی‌آباد -->
+            
+                   <div class="property-grid" id="propertyGrid">
+                {% for x in posts %}
+                  <article class="property-card">
+                <span class="property-card__badge badge-sale">{{x.status}}</span>
+                <button class="property-card__save">♡</button>
+                <a href="#" class="property-card__image-link">
+                    {% if x.image %}  
+                    <img src="{{x.image.url}}" alt="پروفایلی< ندارید"> 
+                    {% else %}
+                    <p>not </p>
+                   {% endif %}
+                    {% comment %} <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" alt="آپارتمان لوکس" class="property-card__image"> {% endcomment %}
+                </a>
+                <div class="property-card__body">
+                    <div class="property-card__price-row">
+                        <span class="property-card__price">{{x.price}}</span>
+                        <span class="property-card__price-unit">تومان</span>
+                        {% comment %} <span class="property-card__price-per-m">۲۸ میلیون/متر</span> {% endcomment %}
+                    </div>
+                    <a href="#" class="property-card__title">{{x.title}}</a>
+                    <div class="property-card__location">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                       {{x.address}}
+                    </div>
+                    <div class="property-card__meta">
+                        <span class="property-card__feature">📐 {{x.area}} متر</span>
+                        <span class="property-card__feature">🛏 {{x.rooms}} خواب</span>
+                        <span class="property-card__feature">🛁 {{x.hammam}}حمام</span>
+                    </div>
+                    <div class="property-card__date">⏱ ۲ روز پیش</div>
+                     <a href="{% url "detail" pk=x.pk %}" class="property-card__title">🧾مشاهده آگهی</a>
+                </div>
+                 </article>
+                    {% endfor %}
+             
+              </div>
+
+          
+
+            <!-- کارت ۲: اجاره در قصرالدشت -->
+            {% comment %} <article class="property-card">
+                <span class="property-card__badge badge-rent">اجاره</span>
+                <button class="property-card__save">♡</button>
+                <a href="#" class="property-card__image-link">
+                    <img src="https://images.unsplash.com/photo-1600566753086-00f18f6b0053?w=400" alt="آپارتمان مبله" class="property-card__image">
+                </a>
+                <div class="property-card__body">
+                    <div class="property-card__price-row">
+                        <span class="property-card__price">۱۸,۰۰۰,۰۰۰</span>
+                        <span class="property-card__price-unit">تومان/ماه</span>
+                    </div>
+                    <a href="#" class="property-card__title">آپارتمان ۲خوابه مبله و تمیز در قصرالدشت</a>
+                    <div class="property-card__location">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        شیراز، قصرالدشت، نزدیک پل
+                    </div>
+                    <div class="property-card__meta">
+                        <span class="property-card__feature">📐 ۹۰ متر</span>
+                        <span class="property-card__feature">🛏 ۲ خواب</span>
+                        <span class="property-card__feature">🛁 ۱ حمام</span>
+                    </div>
+                    <div class="property-card__date">⏱ امروز</div>
+                </div>
+            </article> {% endcomment %}
+
+            <!-- کارت ۳: فروش باغ در قصردشت -->
+            {% comment %} <article class="property-card">
+                <span class="property-card__badge badge-sale">فروش</span>
+                <button class="property-card__save">♡</button>
+                <a href="#" class="property-card__image-link">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400" alt="باغ قصردشت" class="property-card__image">
+                </a>
+                <div class="property-card__body">
+                    <div class="property-card__price-row">
+                        <span class="property-card__price">۹,۵۰۰,۰۰۰,۰۰۰</span>
+                        <span class="property-card__price-unit">تومان</span>
+                        <span class="property-card__price-per-m">۹.۵ میلیون/متر</span>
+                    </div>
+                    <a href="#" class="property-card__title">باغ ۱۰۰۰ متری با درختان مثمر در قصردشت</a>
+                    <div class="property-card__location">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        شیراز، بلوار قصردشت
+                    </div>
+                    <div class="property-card__meta">
+                        <span class="property-card__feature">📐 ۱۰۰۰ متر</span>
+                        <span class="property-card__feature">🌳 باغ</span>
+                        <span class="property-card__feature">💧 آب چاه</span>
+                    </div>
+                    <div class="property-card__date">⏱ ۵ روز پیش</div>
+                </div>
+            </article> {% endcomment %}
+
+            <!-- کارت ۴: فروش زمین در شهرک گلستان -->
+            {% comment %} <article class="property-card">
+                <span class="property-card__badge badge-sale">فروش</span>
+                <button class="property-card__save">♡</button>
+                <a href="#" class="property-card__image-link">
+                    <div class="property-card__placeholder">📷 تصویر به‌زودی</div>
+                </a>
+                <div class="property-card__body">
+                    <div class="property-card__price-row">
+                        <span class="property-card__price">۲,۸۰۰,۰۰۰,۰۰۰</span>
+                        <span class="property-card__price-unit">تومان</span>
+                        <span class="property-card__price-per-m">۱۴ میلیون/متر</span>
+                    </div>
+                    <a href="#" class="property-card__title">زمین ۲۰۰ متری با مجوز ساخت در شهرک گلستان</a>
+                    <div class="property-card__location">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        شیراز، شهرک گلستان، فاز ۲
+                    </div>
+                    <div class="property-card__meta">
+                        <span class="property-card__feature">📐 ۲۰۰ متر</span>
+                        <span class="property-card__feature">🏗 قابل ساخت</span>
+                        <span class="property-card__feature">📍 شمالی</span>
+                    </div>
+                    <div class="property-card__date">⏱ ۱ هفته پیش</div>
+                </div>
+            </article> {% endcomment %}
+
+        {% comment %} </div> {% endcomment %}
+
+        <!-- صفحه‌بندی -->
+        <div class="pagination">
+            <div class="pagination__nav">
+                <a href="#" class="pagination__btn pagination__btn--right">→ قبلی</a>
+                <span class="pagination__info">صفحه ۱ از ۱۳</span>
+                <a href="#" class="pagination__btn pagination__btn--left">بعدی ←</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ==================== فوتر ==================== -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__col">
+                <h4>🏡 املاک شیراز</h4>
+                <p>مرجع تخصصی خرید، فروش و اجاره ملک در شیراز. ما با تکیه بر دانش محلی و شفافیت، خانهٔ رویایی شما را پیدا می‌کنیم.</p>
+            </div>
+            <div class="footer__col">
+                <h4>محله‌های پرطرفدار</h4>
+                <a href="#">معالی‌آباد</a>
+                <a href="#">قصرالدشت</a>
+                <a href="#">دروازه قرآن</a>
+                <a href="#">شهرک گلستان</a>
+            </div>
+            <div class="footer__col">
+                <h4>خدمات</h4>
+                <a href="#">ثبت آگهی رایگان</a>
+                <a href="#">مشاوره ملکی</a>
+                <a href="#">قوانین و مقررات</a>
+                <a href="#">وبلاگ املاک</a>
+            </div>
+            <div class="footer__col">
+                <h4>تماس با ما</h4>
+                <p>📞 ۰۷۱-۳۲۲۲۵۵۸۸</p>
+                <p>📧 info@shirazrealestate.ir</p>
+                <p>📍 شیراز، بلوار چمران، نبش کوچه ۵</p>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            © ۱۴۰۴ املاک شیراز. تمامی حقوق محفوظ است. طراحی با عشق در شیراز
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        // آدرس API لیست آگهی‌ها (همونی که فرستادید)
+        var API_URL = "http://127.0.0.1:8000/api";
+
+        // لینک جزئیات هر آگهی؛ عدد 999999 یک pk الکی است که بعداً با id واقعی جایگزین می‌شود
+        var DETAIL_URL_TEMPLATE = "{% url "detail" pk=999999 %}";
+
+        // اگر مقدار فیلد property_type در دیتابیس شما با این‌ها فرق دارد، این نگاشت رو اصلاح کنید
+        var TYPE_MAP = {
+            "آپارتمان": "apartment",
+            "ویلا": "villa",
+            "زمین و باغ": "land",
+            "تجاری و اداری": "commercial"
+        };
+
+        var form = document.getElementById('searchForm');
+        var grid = document.getElementById('propertyGrid');
+        var resultsCount = document.getElementById('resultsCount');
+        var quickFilters = document.querySelectorAll('#quickFilters .quick-filter');
+        var typeInput = document.getElementById('searchType');
+        var locationInput = document.getElementById('searchLocation');
+        var minPriceInput = document.getElementById('searchMinPrice');
+        var maxPriceInput = document.getElementById('searchMaxPrice');
+
+        var allPosts = null; // کش کل لیست بعد از اولین دریافت از API
+        var activeQuickFilter = { status: null, location: null, minPrice: null, maxPrice: null };
+
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.textContent = str === null || str === undefined ? '' : str;
+            return div.innerHTML;
+        }
+
+        function buildDetailUrl(id) {
+            return DETAIL_URL_TEMPLATE.replace('999999', id);
+        }
+
+        function renderCard(item) {
+            var badgeClass = item.status === 'اجاره' ? 'badge-rent' : 'badge-sale';
+            var imageHtml = item.image
+                ? '<img src="' + item.image + '" alt="' + escapeHtml(item.title) + '">'
+                : '<p>not</p>';
+
+            return (
+                '<article class="property-card">' +
+                    '<span class="property-card__badge ' + badgeClass + '">' + escapeHtml(item.status) + '</span>' +
+                    '<button class="property-card__save">♡</button>' +
+                    '<a href="#" class="property-card__image-link">' + imageHtml + '</a>' +
+                    '<div class="property-card__body">' +
+                        '<div class="property-card__price-row">' +
+                            '<span class="property-card__price">' + escapeHtml(item.price) + '</span>' +
+                            '<span class="property-card__price-unit">تومان</span>' +
+                        '</div>' +
+                        '<a href="#" class="property-card__title">' + escapeHtml(item.title) + '</a>' +
+                        '<div class="property-card__location">' +
+                            '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>' +
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>' +
+                            '</svg>' +
+                            escapeHtml(item.address) +
+                        '</div>' +
+                        '<div class="property-card__meta">' +
+                            '<span class="property-card__feature">📐 ' + escapeHtml(item.area) + ' متر</span>' +
+                            '<span class="property-card__feature">🛏 ' + escapeHtml(item.rooms) + ' خواب</span>' +
+                            '<span class="property-card__feature">🛁 ' + escapeHtml(item.hammam) + 'حمام</span>' +
+                        '</div>' +
+                        '<a href="' + buildDetailUrl(item.id) + '" class="property-card__title">🧾مشاهده آگهی</a>' +
+                    '</div>' +
+                '</article>'
+            );
+        }
+
+        function renderResults(items) {
+            if (!items.length) {
+                grid.innerHTML = '<p style="color:var(--text-secondary); padding:24px; grid-column:1/-1;">هیچ ملکی مطابق این جستجو پیدا نشد.</p>';
+            } else {
+                grid.innerHTML = items.map(renderCard).join('');
+            }
+            if (resultsCount) {
+                resultsCount.textContent = items.length + ' آگهی پیدا شد';
+            }
+        }
+
+        function applyFilters(posts) {
+            var type = typeInput.value;
+            var location = locationInput.value.trim();
+            var minPrice = parseFloat(minPriceInput.value);
+            var maxPrice = parseFloat(maxPriceInput.value);
+
+            return posts.filter(function (post) {
+                if (type && TYPE_MAP[type] && post.property_type !== TYPE_MAP[type]) return false;
+                if (location && (post.address || '').indexOf(location) === -1) return false;
+                if (!isNaN(minPrice) && Number(post.price) < minPrice) return false;
+                if (!isNaN(maxPrice) && Number(post.price) > maxPrice) return false;
+
+                if (activeQuickFilter.status && post.status !== activeQuickFilter.status) return false;
+                if (activeQuickFilter.location && (post.address || '').indexOf(activeQuickFilter.location) === -1) return false;
+                if (activeQuickFilter.minPrice !== null && Number(post.price) < activeQuickFilter.minPrice) return false;
+                if (activeQuickFilter.maxPrice !== null && Number(post.price) > activeQuickFilter.maxPrice) return false;
+
+                return true;
+            });
+        }
+
+        function fetchAllPosts() {
+            if (allPosts) {
+                return Promise.resolve(allPosts);
+            }
+            grid.style.opacity = '0.5';
+            return fetch(API_URL)
+                .then(function (res) {
+                    if (!res.ok) throw new Error('پاسخ نامعتبر از API');
+                    return res.json();
+                })
+                .then(function (data) {
+                    allPosts = Array.isArray(data) ? data : (data.results || []);
+                    return allPosts;
+                })
+                .finally(function () {
+                    grid.style.opacity = '1';
+                });
+        }
+
+        function runSearch() {
+            fetchAllPosts()
+                .then(function (posts) {
+                    renderResults(applyFilters(posts));
+                })
+                .catch(function (err) {
+                    grid.innerHTML = '<p style="color:#f87171; padding:24px; grid-column:1/-1;">اتصال به API برقرار نشد. مطمئن شوید سرور جنگو در حال اجراست و CORS تنظیم شده.</p>';
+                    console.error(err);
+                });
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            activeQuickFilter = { status: null, location: null, minPrice: null, maxPrice: null };
+            quickFilters.forEach(function (b) { b.classList.remove('active'); });
+            runSearch();
+        });
+
+        quickFilters.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                quickFilters.forEach(function (b) { b.classList.remove('active'); });
+                this.classList.add('active');
+
+                activeQuickFilter = {
+                    status: this.dataset.status || null,
+                    location: this.dataset.location || null,
+                    minPrice: this.dataset.minPrice ? Number(this.dataset.minPrice) : null,
+                    maxPrice: this.dataset.maxPrice ? Number(this.dataset.maxPrice) : null
+                };
+
+                if (this.dataset.location) {
+                    locationInput.value = this.dataset.location;
+                } else {
+                    locationInput.value = '';
+                }
+
+                runSearch();
+            });
+        });
+
+        // اولین بار، همون کارت‌هایی که جنگو رندر کرده باقی می‌مونه تا کاربر سرچ کنه
+        // اگر می‌خواید همون اول هم از API پر بشه، خط زیر رو از کامنت خارج کنید:
+        // runSearch();
+    })();
+    </script>
+
+</body>
+</html>

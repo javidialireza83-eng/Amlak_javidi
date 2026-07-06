@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جزئیات ملک | املاک شیراز</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* ========== ریست و پایه ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0c0e12;
+            --bg-elevated: #15181e;
+            --surface: #1b1f27;
+            --surface-hover: #21252e;
+            --border: #2a2f3a;
+            --border-soft: #232730;
+            --gold: #d4af37;
+            --gold-bright: #f0c75e;
+            --gold-dim: rgba(212,175,55,0.14);
+            --teal: #1f6f5c;
+            --teal-bright: #2f9c81;
+            --text-primary: #ece9e2;
+            --text-secondary: #a3a8b4;
+            --text-muted: #6b7280;
+            --whatsapp: #25D366;
+            --whatsapp-dark: #128C7E;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            background-image:
+                radial-gradient(circle at 20% 0%, rgba(212,175,55,0.05), transparent 40%),
+                radial-gradient(circle at 100% 30%, rgba(31,111,92,0.07), transparent 45%),
+                url("data:image/svg+xml,%3Csvg width='84' height='84' viewBox='0 0 84 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-opacity='0.045'%3E%3Cpath d='M42 0 L84 42 L42 84 L0 42 Z'/%3E%3Ccircle cx='42' cy='42' r='18'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+
+        /* ========== هدر ========== */
+        .header {
+            background: linear-gradient(180deg, #11151b 0%, #0c0e12 100%);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+        }
+        .header__top {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .header__logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gold-dim);
+            border: 1px solid rgba(212,175,55,0.35);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .header__subtitle {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--gold);
+            display: block;
+            margin-top: -2px;
+        }
+        .header__nav { display: flex; gap: 1.8rem; align-items: center; flex-wrap: wrap; }
+        .header__nav a {
+            color: var(--text-secondary);
+            font-weight: 500; font-size: 0.95rem;
+            transition: all 0.2s; padding: 6px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .header__nav a:hover, .header__nav a.active { color: var(--gold-bright); border-bottom-color: var(--gold); }
+        .header__btn {
+            background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+            color: #14110a;
+            padding: 10px 22px; border-radius: 50px;
+            font-weight: 700; font-size: 0.9rem;
+            border: none; cursor: pointer; transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .header__btn:hover {
+            filter: brightness(1.08); transform: translateY(-1px);
+            box-shadow: 0 8px 22px rgba(212,175,55,0.3);
+        }
+
+        /* ========== محتوای اصلی ========== */
+        .main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 20px 48px;
+        }
+
+        /* ========== بردکرامب ========== */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .breadcrumb a { color: var(--gold-bright); }
+        .breadcrumb span { color: var(--text-muted); }
+
+        /* ========== گالری تصاویر ========== */
+        .gallery {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 420px;
+            border: 1px solid var(--border-soft);
+        }
+        .gallery__main {
+            flex: 3;
+            position: relative;
+            background: var(--bg-elevated);
+        }
+        .gallery__main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s;
+        }
+        .gallery__placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-elevated);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        .gallery__thumbs {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .gallery__thumb {
+            flex: 1;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 8px;
+            opacity: 0.65;
+            transition: all 0.2s;
+            background: var(--bg-elevated);
+        }
+        .gallery__thumb.active, .gallery__thumb:hover { opacity: 1; box-shadow: 0 0 0 3px var(--gold); }
+        .gallery__thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ========== دو ستونه اطلاعات ========== */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+        }
+        @media (max-width: 900px) {
+            .detail-grid { grid-template-columns: 1fr; }
+            .gallery { height: 280px; }
+        }
+
+        /* ========== بخش اطلاعات اصلی ========== */
+        .info-box {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-soft);
+        }
+        .info-box__status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .status-sale { background: rgba(212,175,55,0.92); color: #14110a; }
+        .status-rent { background: rgba(180,83,9,0.92); color: #fff; }
+        .info-box__price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gold-bright);
+            margin-bottom: 4px;
+        }
+        .info-box__price-unit {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        .info-box__title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 8px 0 12px;
+        }
+        .info-box__address {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .info-box__address svg { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; }
+
+        /* ویژگی‌ها */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+            padding: 16px 0;
+            border-top: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .feature-item svg { width: 20px; height: 20px; color: var(--gold); }
+
+        /* توضیحات */
+        .description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin: 16px 0;
+        }
+        .description strong { color: var(--text-primary); }
+
+        /* لینک‌های ویرایش/حذف آگهی */
+        .info-box a.property-card__title {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            transition: all 0.2s;
+        }
+        .info-box a.property-card__title:hover {
+            border-color: var(--gold);
+            color: var(--gold-bright);
+        }
+
+        /* ========== کارت تماس با مالک ========== */
+        .owner-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-soft);
+            position: sticky;
+            top: 100px;
+        }
+        .owner-card__header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .owner-card__avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gold-dim);
+            border: 1px solid rgba(212,175,55,0.35);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .owner-card__name { font-weight: 700; color: #fff; }
+        .owner-card__phone {
+            color: var(--gold-bright);
+            font-weight: 600;
+            font-size: 1.1rem;
+            direction: ltr;
+            text-align: right;
+        }
+        .owner-card__btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--teal-bright), var(--teal));
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.3s;
+        }
+        .owner-card__btn:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 8px 22px rgba(31,111,92,0.4);
+        }
+        .owner-card__chat-btn { background: var(--whatsapp); }
+        .owner-card__chat-btn:hover { background: var(--whatsapp-dark); filter: none; box-shadow: 0 8px 22px rgba(37,211,102,0.3); }
+
+        /* ========== ملک‌های مشابه ========== */
+        .similar-section { margin-top: 48px; }
+        .similar-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; color: #fff; }
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* ========== کارت ملک (مشابه) ========== */
+        .property-card {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            transition: all 0.35s ease;
+            border: 1px solid var(--border-soft);
+        }
+        .property-card:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.55); transform: translateY(-4px); border-color: rgba(212,175,55,0.4); }
+        .property-card__image-link { display: block; height: 180px; overflow: hidden; background: var(--bg-elevated); }
+        .property-card__image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .property-card:hover .property-card__image { transform: scale(1.08); }
+        .property-card__body { padding: 16px; }
+        .property-card__price { font-size: 1rem; font-weight: 800; color: var(--gold-bright); }
+        .property-card__title { font-weight: 600; margin: 4px 0; color: var(--text-primary); }
+        .property-card__meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px; }
+
+        /* ========== فوتر ========== */
+        .footer {
+            background: #08090c; color: var(--text-secondary); margin-top: 48px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .footer__container {
+            max-width: 1280px; margin: 0 auto; padding: 32px 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;
+        }
+        .footer__col h4 { color: var(--gold-bright); font-size: 1rem; margin-bottom: 12px; font-weight: 700; }
+        .footer__col a, .footer__col p { font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px; transition: color 0.2s; }
+        .footer__col a:hover { color: var(--gold-bright); }
+        .footer__bottom { text-align: center; padding: 16px 20px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-soft); }
+    </style>
+</head>
+<body>
+
+    <!-- هدر -->
+    <header class="header">
+        <div class="header__top">
+            <a href="/" class="header__logo">
+                <span class="header__logo-icon">🏡</span>
+                <span>املاک شیراز <span class="header__subtitle">شیراز، شهر راز</span></span>
+            </a>
+            <nav class="header__nav">
+                <a href="#">خانه</a>
+                <a href="#" class="active">آگهی‌ها</a>
+                <a href="#">مشاوران</a>
+                <a href="#">وبلاگ</a>
+                <a href="#">تماس با ما</a>
+            </nav>
+            {% comment %} <button class="header__btn">➕ ثبت آگهی رایگان</button> {% endcomment %}
+             <a href="{% url "create"  %}" class="header__btn" >➕ثبت آگهی رایگان</a>
+        </div>
+    </header>
+
+    <!-- محتوای اصلی -->
+    <main class="main">
+        <!-- بردکرامب -->
+        <div class="breadcrumb">
+            <a href="/">خانه</a> <span>/</span>
+            <a href="/list/">آگهی‌ها</a> <span>/</span>
+            <span>آپارتمان ۳خوابه در معالی‌آباد</span>
+        </div>
+
+        <!-- گالری تصاویر -->
+        <!-- در جنگو: تصویر اصلی از {{ property.image.url }} و بندانگشتی‌ها از حلقه images.all -->
+        <div class="gallery">
+            <div class="gallery__main">
+                {% if post.image %}
+                    <img id="mainImage" src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% else %}
+                    <div class="gallery__placeholder">📷 تصویر ندارد</div>
+                {% endif %}
+            </div>
+            {% if property.images and property.images.count > 1 %}
+            <div class="gallery__thumbs">
+                {% for img in property.images.all %}
+                <div class="gallery__thumb {% if forloop.first %}active{% endif %}" onclick="changeImage('{{ img.image.url }}', this)">
+                    <img src="{{ img.image.url }}" alt="تصویر {{ forloop.counter }}">
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- دو ستونه: اطلاعات + کارت مالک -->
+        <div class="detail-grid">
+            <!-- ستون راست: اطلاعات ملک -->
+            <div class="info-box">
+                <span class="info-box__status status-sale">فروش</span>
+                <div class="info-box__price">{{post.price}}<span class="info-box__price-unit">تومان</span></div>
+                <div style="font-size:0.85rem; color:var(--text-muted);">۲۸ میلیون تومان هر متر</div>
+                <h1 class="info-box__title">{{post.title}}</h1>
+                <div class="info-box__address">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  {{post.address}}
+                </div>
+
+                <!-- ویژگی‌ها -->
+                <div class="features-grid">
+                    <div class="feature-item">📐 {{post.area}} متر مربع</div>
+                    <div class="feature-item">🛏 {{post.rooms}} خواب</div>
+                    <div class="feature-item">🛁 {{post.hammam}} حمام</div>
+                    <div class="feature-item">🏢 {{post.floor}}طبقه</div>
+                    <div class="feature-item">🏗 {{post.year_built}} سال ساخت </div>
+                    {% comment %} <div class="feature-item">🚗 پارکینگ</div> {% endcomment %}
+                    {% comment %} <div class="feature-item">🛗 آسانسور</div> {% endcomment %}
+                    {% comment %} <div class="feature-item">🌳 بالکن</div> {% endcomment %}
+                </div>
+
+                <!-- توضیحات -->
+                <div class="description">
+                    <strong>توضیحات ملک:</strong>
+                    <p>{{post.description}}</p>
+                </div>
+                  <a href="{% url "update" pk=post.pk %}" class="property-card__title">✍️ویرایش آگهی</a><Br>
+                  <a href="{% url "delete" pk=post.pk %}" class="property-card__title">❌حذف آگهی</a>
+            </div>
+           
+
+            <!-- ستون چپ: کارت مالک -->
+            <aside>
+                <div class="owner-card">
+                    <div class="owner-card__header">
+                        <div class="owner-card__avatar">👤</div>
+                        <div>
+                            <div class="owner-card__name">{{post.owner_name}}</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">مالک (آگهی‌دهنده)</div>
+                        </div>
+                    </div>
+                    <div class="owner-card__phone">📞 {{post.owner_phone}}</div>
+                    <button class="owner-card__btn">📞 تماس با مالک</button>
+                    <button class="owner-card__btn owner-card__chat-btn" style="margin-top:8px;">💬 چت در واتساپ</button>
+                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:8px; text-align:center;">آگهی ۲ روز پیش منتشر شده</p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- ملک‌های مشابه -->
+        {% comment %} <section class="similar-section">
+            <h2 class="similar-title">🏘 ملک‌های مشابه در شیراز</h2>
+            <div class="similar-grid">
+                <article class="property-card">
+                    <a href="#" class="property-card__image-link"><img src="https://images.unsplash.com/photo-1600566753086-00f18f6b0053?w=400" class="property-card__image" alt="...">
+                    </a>
+                    <div class="property-card__body">
+                        <div class="property-card__price">۳,۸۰۰,۰۰۰,۰۰۰ تومان</div>
+                        <a href="#" class="property-card__title">آپارتمان ۲خوابه در معالی‌آباد</a>
+                        <div class="property-card__meta">
+                            <span>📐 ۱۳۰ متر</span><span>🛏 ۲ خواب</span><span>🏢 طبقه ۳</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="property-card">
+                    <a href="#" class="property-card__image-link">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400" class="property-card__image" alt="...">
+                    </a>
+                    <div class="property-card__body">
+                        <div class="property-card__price">۵,۲۰۰,۰۰۰,۰۰۰ تومان</div>
+                        <a href="#" class="property-card__title">آپارتمان لوکس ۳خوابه قصرالدشت</a>
+                        <div class="property-card__meta">
+                            <span>📐 ۱۷۰ متر</span><span>🛏 ۳ خواب</span><span>🏢 طبقه ۷</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="property-card">
+                    <a href="#" class="property-card__image-link">
+                        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400" class="property-card__image" alt="...">
+                    </a>
+                    <div class="property-card__body">
+                        <div class="property-card__price">۲,۹۰۰,۰۰۰,۰۰۰ تومان</div>
+                        <a href="#" class="property-card__title">زمین ۲۵۰ متری شهرک گلستان</a>
+                        <div class="property-card__meta">
+                            <span>📐 ۲۵۰ متر</span><span>🏗 قابل ساخت</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section> {% endcomment %}
+    </main>
+
+    <!-- فوتر -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__col"><h4>🏡 املاک شیراز</h4><p>مرجع تخصصی خرید، فروش و اجاره ملک در شیراز.</p></div>
+            <div class="footer__col"><h4>محله‌ها</h4><a href="#">معالی‌آباد</a><a href="#">قصرالدشت</a><a href="#">شهرک گلستان</a></div>
+            <div class="footer__col"><h4>خدمات</h4><a href="#">ثبت آگهی</a><a href="#">مشاوره</a><a href="#">قوانین</a></div>
+            <div class="footer__col"><h4>تماس</h4><p>📞 ۰۷۱-۳۲۲۲۵۵۸۸</p><p>📧 info@shirazestate.ir</p><p>📍 شیراز، بلوار چمران</p></div>
+        </div>
+        <div class="footer__bottom">© ۱۴۰۴ املاک شیراز. طراحی با عشق در شیراز</div>
+    </footer>
+
+    <script>
+        // تغییر تصویر اصلی با کلیک روی بندانگشتی
+        function changeImage(src, element) {
+            const mainImg = document.getElementById('mainImage');
+            if (mainImg) {
+                mainImg.src = src;
+            }
+            // حذف کلاس active از همه
+            document.querySelectorAll('.gallery__thumb').forEach(t => t.classList.remove('active'));
+            // اضافه کردن به عنصر کلیک شده
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>

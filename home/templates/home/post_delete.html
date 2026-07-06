@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تأیید حذف محصول</title>
+  <style>
+    :root {
+      --red: #d32f2f;
+      --red-dark: #b71c1c;
+      --bg: #0a0909;
+      --page: #0a0a0a;
+      --text: #222;
+      --muted: #777;
+      --border: #e8e8e8;
+      --radius: 14px;
+      --shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: var(--page);
+      color: var(--text);
+      line-height: 1.9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 0 16px;
+    }
+
+    /* کارت تأیید حذف */
+    .delete-confirmation-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      text-align: center;
+      padding: 40px 30px;
+    }
+
+    .delete-icon {
+      font-size: 72px;
+      color: var(--red);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .delete-confirmation-card h2 {
+      margin: 0 0 15px;
+      font-size: 28px;
+      color: var(--red-dark);
+    }
+
+    .delete-confirmation-card p {
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: .2s;
+      cursor: pointer;
+    }
+
+    .btn-cancel {
+      background: var(--border);
+      color: var(--text);
+      border: none;
+    }
+    .btn-cancel:hover {
+      background: var(--muted);
+      color: #fff;
+    }
+
+    .btn-delete {
+      background: var(--red);
+      color: #fff;
+      border: none;
+    }
+    .btn-delete:hover {
+      background: var(--red-dark);
+    }
+
+    @media (max-width: 576px) {
+      .btn-group {
+        flex-direction: column;
+      }
+      .delete-confirmation-card {
+        padding: 30px 20px;
+      }
+      .delete-icon {
+        font-size: 60px;
+      }
+      .delete-confirmation-card h2 {
+        font-size: 24px;
+      }
+      .delete-confirmation-card p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  {% comment %} <form method="post">
+    {% csrf_token %}
+     {{ post.as_p }} 
+     <p>آیا میخواهید آگهی{{posts.title}} را حذف کنید</p>
+    <button type="submit" class="btn btn-success">delete</button>
+      <a href='{% url "list" %}' >cancel</a>
+  </form> {% endcomment %}
+ <form method='post'>
+    {% csrf_token %}
+  <div class="container">
+   <div class="delete-confirmation-card">
+      <span class="delete-icon">🗑️</span> <!-- آیکون سطل زباله -->
+      <h2>آیا مطمئن هستید؟</h2>
+      <p>
+
+شما در حال حذف آگهی ثبت شده
+        <span class="product-name"></span>
+        هستید.
+   این عمل غیر قابل بازگشت است
+      </p>
+      <div class="btn-group">
+        <a href="{% url 'list' %}" class="btn btn-cancel">انصراف</a>
+        {% comment %} <a href="#" class="btn btn-delete">حذف محصول</a> {% endcomment %}
+          <button type="submit" class="btn btn-delete">حذف</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+</body>
+</html>
