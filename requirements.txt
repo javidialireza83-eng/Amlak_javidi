@@ -1,6 +1,7 @@
 asgiref==3.11.0
 distlib==0.4.0
 Django==6.0
+django-autoslug==1.9.9
 django-cors-headers==4.9.0
 django-render-partial==0.4
 djangorestframework==3.17.1

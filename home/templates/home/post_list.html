@@ -975,7 +975,7 @@
                 return Promise.resolve(allPosts);
             }
             grid.style.opacity = '0.5';
-            return fetch(API_URL)
+            return fetch(API_URL+ "/api")
                 .then(function (res) {
                     if (!res.ok) throw new Error('پاسخ نامعتبر از API');
                     return res.json();
