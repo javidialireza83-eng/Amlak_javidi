@@ -4,6 +4,7 @@ from .forms import HomeForms
 from .seriailzers import HomeSeriailzer
 from django.views import generic
 from django.urls import reverse_lazy
+from django.http import HttpResponseForbidden
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from rest_framework.response import Response
@@ -26,6 +27,10 @@ class Create_View(LoginRequiredMixin,generic.CreateView):
     template_name='home/post_create.html'
     success_url=reverse_lazy('list')
     
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
 class Update_View(LoginRequiredMixin,generic.UpdateView):
     model=Home
     # fields='__all__'
@@ -33,12 +38,23 @@ class Update_View(LoginRequiredMixin,generic.UpdateView):
     template_name='home/post_update.html'
     success_url=reverse_lazy('list')
     
+    def dispatch(self, request, *args, **kwargs):
+        obj=self.get_object()
+        if obj.owner != request.user:
+             return HttpResponseForbidden("شما اجازه ویرایش این آگهی را ندارید.")
+        return super().dispatch(request, *args, **kwargs)
+    
 class Detele_View(LoginRequiredMixin,generic.DeleteView):
     model=Home
     template_name='home/post_delete.html'
     success_url=reverse_lazy('list')
     
-    
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.owner != request.user:
+            return HttpResponseForbidden("شما اجازه حذف این آگهی را ندارید.")
+        return super().dispatch(request, *args, **kwargs)
+
 #--------------API---------------
 class Api_List_View(generics.ListAPIView):
     queryset=Home.objects.all()

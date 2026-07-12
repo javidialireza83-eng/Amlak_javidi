@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 
@@ -60,7 +60,7 @@ class Home(models.Model):
         verbose_name="تعداد اتاق* "
     )
     
-    hammam=models.IntegerField(max_length=100,verbose_name="تعداد حمام",null=True)
+    hammam=models.IntegerField(verbose_name="تعداد حمام",null=True)
     
     floor = models.PositiveSmallIntegerField(
         null=True,
@@ -109,8 +109,12 @@ class Home(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True
     )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='homes'
+    )
 
+    image=models.ImageField(upload_to='image_home',null=True,blank=True)
     def __str__(self):
         return self.title
-    image=models.ImageField(upload_to='image_home',null=True,blank=True)
-   
