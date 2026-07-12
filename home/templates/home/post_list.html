@@ -867,7 +867,8 @@
     <script>
     (function () {
         // آدرس API لیست آگهی‌ها (همونی که فرستادید)
-        var API_URL = "http://127.0.0.1:8000/api";
+        {% comment %} var API_URL = "http://127.0.0.1:8000/api"; {% endcomment %}
+          var API_URL = "https://amlak-javidi-1.onrender.com";
 
         // لینک جزئیات هر آگهی؛ عدد 999999 یک pk الکی است که بعداً با id واقعی جایگزین می‌شود
         var DETAIL_URL_TEMPLATE = "{% url "detail" pk=999999 %}";
