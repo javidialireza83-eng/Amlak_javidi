@@ -8,8 +8,7 @@ class HomeForms(forms.ModelForm):
       #       )
       images = forms.ImageField(
         required=False,
-        widget=forms.FileInput(attrs={  # ClearableFileInput → FileInput
-            'multiple': True,
+        widget=forms.ClearableFileInput(attrs={
             'class': 'form-control'
         }),
         label="تصاویر آگهی"
