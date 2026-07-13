@@ -11,7 +11,8 @@ from .models import Home
 class HomeForms(forms.ModelForm):
     class Meta:
         model = Home
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['owner']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: آپارتمان ۳خوابه'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
