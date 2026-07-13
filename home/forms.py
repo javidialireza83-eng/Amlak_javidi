@@ -3,9 +3,17 @@ from django import forms
 from .models import Home
 
 class HomeForms(forms.ModelForm):
-      images = forms.ImageField(required=False,
-            widget=forms.ClearableFileInput(attrs={'multiple': True}),
-            )
+      # images = forms.ImageField(required=False,
+      #       widget=forms.ClearableFileInput(attrs={'multiple': True}),
+      #       )
+      images = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(attrs={  # ClearableFileInput → FileInput
+            'multiple': True,
+            'class': 'form-control'
+        }),
+        label="تصاویر آگهی"
+       )
       class Meta:
         model = Home
         # fields = '__all__'
