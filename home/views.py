@@ -30,7 +30,8 @@ class Create_View(LoginRequiredMixin,generic.CreateView):
     
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        
         images = self.request.FILES.getlist('images')
         for image in images:
           HomeImage.objects.create(home=self.object, image=image) 

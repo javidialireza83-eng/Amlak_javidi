@@ -121,4 +121,6 @@ class Home(models.Model):
     
 class HomeImage(models.Model):
     home=models.ForeignKey(Home,on_delete=models.CASCADE,related_name='images')
-    image=models.ImageField(upload_to='image_home',null=True,blank=True)
+    image=models.ImageField(upload_to='image_home')
+    def __str__(self):
+        return self.home.title
