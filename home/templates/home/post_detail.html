@@ -378,6 +378,31 @@
         .footer__col a, .footer__col p { font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px; transition: color 0.2s; }
         .footer__col a:hover { color: var(--gold-bright); }
         .footer__bottom { text-align: center; padding: 16px 20px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-soft); }
+
+        .gallery__main img{
+         width:100%;
+         height:450px;
+         object-fit:cover;
+          border-radius:10px;
+        }
+
+       .gallery__thumbs{
+        display:flex;
+        gap:10px;
+        margin-top:15px;
+        }
+
+       .gallery__thumbs img{
+        width:90px;
+        height:90px;
+        object-fit:cover;
+       border-radius:8px;
+       cursor:pointer;
+       border:3px solid transparent;}
+
+      .gallery__thumbs img.active{
+      border-color:#ffc107;
+    }
     </style>
 </head>
 <body>
@@ -414,15 +439,16 @@
         <!-- در جنگو: تصویر اصلی از {{ property.image.url }} و بندانگشتی‌ها از حلقه images.all -->
         <div class="gallery">
             <div class="gallery__main">
-                {% if post.image %}
-                    <img id="mainImage" src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% if post.images.first %}
+                    <img id="mainImage" src="{{ post.images.first.image.url }}" alt="{{ post.title }}">
                 {% else %}
                     <div class="gallery__placeholder">📷 تصویر ندارد</div>
                 {% endif %}
             </div>
-            {% if property.images and property.images.count > 1 %}
+
+            {% if post.images and post.images.count > 1 %}
             <div class="gallery__thumbs">
-                {% for img in property.images.all %}
+                {% for img in post.images.all %}
                 <div class="gallery__thumb {% if forloop.first %}active{% endif %}" onclick="changeImage('{{ img.image.url }}', this)">
                     <img src="{{ img.image.url }}" alt="تصویر {{ forloop.counter }}">
                 </div>
@@ -486,47 +512,7 @@
             </aside>
         </div>
 
-        <!-- ملک‌های مشابه -->
-        {% comment %} <section class="similar-section">
-            <h2 class="similar-title">🏘 ملک‌های مشابه در شیراز</h2>
-            <div class="similar-grid">
-                <article class="property-card">
-                    <a href="#" class="property-card__image-link"><img src="https://images.unsplash.com/photo-1600566753086-00f18f6b0053?w=400" class="property-card__image" alt="...">
-                    </a>
-                    <div class="property-card__body">
-                        <div class="property-card__price">۳,۸۰۰,۰۰۰,۰۰۰ تومان</div>
-                        <a href="#" class="property-card__title">آپارتمان ۲خوابه در معالی‌آباد</a>
-                        <div class="property-card__meta">
-                            <span>📐 ۱۳۰ متر</span><span>🛏 ۲ خواب</span><span>🏢 طبقه ۳</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="property-card">
-                    <a href="#" class="property-card__image-link">
-                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400" class="property-card__image" alt="...">
-                    </a>
-                    <div class="property-card__body">
-                        <div class="property-card__price">۵,۲۰۰,۰۰۰,۰۰۰ تومان</div>
-                        <a href="#" class="property-card__title">آپارتمان لوکس ۳خوابه قصرالدشت</a>
-                        <div class="property-card__meta">
-                            <span>📐 ۱۷۰ متر</span><span>🛏 ۳ خواب</span><span>🏢 طبقه ۷</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="property-card">
-                    <a href="#" class="property-card__image-link">
-                        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400" class="property-card__image" alt="...">
-                    </a>
-                    <div class="property-card__body">
-                        <div class="property-card__price">۲,۹۰۰,۰۰۰,۰۰۰ تومان</div>
-                        <a href="#" class="property-card__title">زمین ۲۵۰ متری شهرک گلستان</a>
-                        <div class="property-card__meta">
-                            <span>📐 ۲۵۰ متر</span><span>🏗 قابل ساخت</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section> {% endcomment %}
+      
     </main>
 
     <!-- فوتر -->
@@ -553,5 +539,17 @@
             element.classList.add('active');
         }
     </script>
+    <script>
+    function changeImage(element) {
+
+    document.getElementById("mainImage").src = element.src;
+
+    document.querySelectorAll(".thumb").forEach(function(img){
+        img.classList.remove("active");
+    });
+
+    element.classList.add("active");
+}
+</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
+from urllib import response
 from django.shortcuts import render
-from .models import Home
+from .models import Home, HomeImage
 from .forms import HomeForms
 from .seriailzers import HomeSeriailzer
 from django.views import generic
@@ -30,7 +31,11 @@ class Create_View(LoginRequiredMixin,generic.CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
-    
+        images = self.request.FILES.getlist('images')
+        for image in images:
+          HomeImage.objects.create(home=self.object, image=image) 
+        return response
+
 class Update_View(LoginRequiredMixin,generic.UpdateView):
     model=Home
     # fields='__all__'

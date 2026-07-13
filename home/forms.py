@@ -1,10 +1,4 @@
-# from django import forms
-# from .models import Home
 
-# class HomeForms(forms.ModelForm):
-#     class Meta:
-#         model=Home
-#         fields='__all__'
 from django import forms
 from .models import Home
 
@@ -13,6 +7,9 @@ class HomeForms(forms.ModelForm):
         model = Home
         # fields = '__all__'
         exclude = ['owner']
+        images = forms.ImageField(
+            widget=forms.ClearableFileInput(attrs={'multiple': True},required=False),
+            )
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'مثال: آپارتمان ۳خوابه'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
