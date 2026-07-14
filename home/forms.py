@@ -7,12 +7,14 @@ class HomeForms(forms.ModelForm):
       #       widget=forms.ClearableFileInput(attrs={'multiple': True}),
       #       )
       images = forms.ImageField(
-        required=False,
-        widget=forms.ClearableFileInput(attrs={
-            'class': 'form-control'
-        }),
-        label="تصاویر آگهی"
-       )
+       required=False,
+      widget=forms.ClearableFileInput(
+        attrs={
+            "multiple": True,
+            "class": "form-control",
+        }
+      )
+    )
       class Meta:
         model = Home
         # fields = '__all__'
